@@ -1,0 +1,1 @@
+{"cmd": "\np1 = [0, 4, 3, 1, 2]\np2 = [1, 4, 2, 3, 0]\nkendall_tau(p1, p2)\nkendal_tau_fast(p1, p2)", "cmd_opts": " --cell_id=Ck90QblgyB -s", "import_complete": 1, "terminal": "nvimterm"}
