@@ -1,9 +1,11 @@
 import time
+import json
 import numpy as np
 import matplotlib.pyplot as plt
+from itertools import permutations
 
 
-def load_permutations(filename="CS271/HW4_FairElections-main/preferences.csv"):
+def load_permutations(filename="preferences.csv"):
     """
     Load all student permutations from a file
 
@@ -162,18 +164,36 @@ def get_average_ranking(stars, raters):
     print(list(res.keys()))
 
 def kendal_tau_fast(p1, p2):
-    map = {}
     indecies = []
     for i in range(len(p1)):
         indecies.append(p1.index(i))
 
+    new = []
     for i in range(len(p2)):
         p2[i] = indecies[p2[i]]
 
     y = [0]*len(p2)
     return mergesort_rec(p2, y, 0, len(p2)-1)
 
+def kemeny(raters):
+    stars = [0,1,2,3,4,5,6,7]
+    perms = list(permutations(stars))
     
+    keys = raters.keys()
+    
+    best = []
+    
+    m = 10000000
+    
+    for perm in perms:
+        d = 0
+        for key in keys:
+            d += kendal_tau_fast(list(perm), raters[key])
+        if d < m:
+            m = d
+            best = perm
+            
+    return best 
     
     
 def merge(x, y, i1, mid, i2):
@@ -250,10 +270,40 @@ def mergesort_rec(x, y, i1, i2):
         ret = left + right + merge_result
     return ret 
 
+def compare_cover_songs(Songs):
+    g = np.zeros((32, 32))
+    for i in range(len(Songs) - 1):
+        for j in range(i + i, len(Songs) - 1):
+            d =  kendal_tau_fast(Songs[i]["rankings"], Songs[j]["rankings"])
+            g[i][j] = d 
+            g[j][i] = d 
+    return g
 
-#|%%--%%| <Q4QLWpCOdb|Ck90QblgyB>`
 
-p1 = [0, 4, 3, 1, 2]
-p2 = [1, 4, 2, 3, 0]
-kendall_tau(p1, p2)
-kendal_tau_fast(p1, p2)
+
+def plot_tune_similarities(tunes, D):
+    """
+    Parameters
+    ----------
+    tunes: list of N dictionary items
+        Tunes loaded in from the JSON file
+    D: ndarray(N, N)
+        An NxN matrix with the Kendall-Tau distances between
+        all pairs of tunes
+    """
+    pix = np.arange(len(tunes))
+    J, I = np.meshgrid(pix, pix)
+    J = J.flatten()
+    I = I.flatten()
+    sz = np.max(D)-D
+    sz /= np.max(sz)
+    sz = sz**1.5
+    sz = 40*sz/np.max(sz)
+ 
+    plt.figure(figsize=(12, 10))
+    plt.scatter(J, I, s=sz, c=D, cmap='magma')
+    plt.gca().invert_yaxis()
+    plt.xticks(np.arange(D.shape[0]), [t["name"] + " " + t["version"] for t in tunes], rotation=90)
+    plt.yticks(np.arange(D.shape[0]), [t["name"] + " " + t["version"] for t in tunes])
+    plt.colorbar()
+    plt.gca().set_facecolor((0.9, 0.9, 0.9))

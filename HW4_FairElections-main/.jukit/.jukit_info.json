@@ -1,1 +1,1 @@
-{"cmd": "\np1 = [0, 4, 3, 1, 2]\np2 = [1, 4, 2, 3, 0]\nkendall_tau(p1, p2)\nkendal_tau_fast(p1, p2)", "cmd_opts": " --cell_id=Ck90QblgyB -s", "import_complete": 0, "terminal": "nvimterm"}
+{"cmd": "\n#p1 = [0, 4, 3, 1, 2]\n#p2 = [1, 4, 2, 3, 0]\n#kendall_tau(p1, p2)\n#kendal_tau_fast(p1, p2)\n\ntunes = json.load(open(\"HW4_FairElections-main/tunes.json\", encoding=\"utf8\"))\nD = compare_cover_songs(tunes)\nprint(D)\nplot_tune_similarities(tunes, D)", "cmd_opts": " --cell_id=Ck90QblgyB -s", "import_complete": 1, "terminal": "nvimterm"}
