@@ -112,8 +112,6 @@ T = make_tree()
 T.draw()
 
 # |%%--%%| <SE4TZ2NKnr|ip52YOSxMb>
-T.remove(10)
-T.remove(16)
-T.remove(7)
+T.remove(14)
 T.draw()
 

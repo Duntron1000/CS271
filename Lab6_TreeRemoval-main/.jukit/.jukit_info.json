@@ -1,1 +1,1 @@
-{"cmd": "T.remove(10)\nT.remove(16)\nT.remove(7)\nT.draw()\n", "cmd_opts": " --cell_id=ip52YOSxMb -s", "import_complete": 1, "terminal": "nvimterm"}
+{"cmd": "T.remove(14)\nT.draw()\n", "cmd_opts": " --cell_id=ip52YOSxMb -s", "import_complete": 1, "terminal": "nvimterm"}
