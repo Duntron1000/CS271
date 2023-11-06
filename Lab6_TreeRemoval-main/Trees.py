@@ -63,7 +63,7 @@ class TreeNode(object):
                 cursor = self.left
                 while cursor.right:
                     cursor = cursor.right
-                # replace the node we want to remove with that 
+           # replace the node we want to remove with that 
                 self.key = cursor.key
                 # remove the one we replaced with 
                 self.left = self.left.remove(cursor.key)
@@ -112,6 +112,6 @@ T = make_tree()
 T.draw()
 
 # |%%--%%| <SE4TZ2NKnr|ip52YOSxMb>
-T.remove(14)
+T.remove(16)
 T.draw()
 
